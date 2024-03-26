@@ -61,20 +61,34 @@ const containerPost = document.querySelector('#container');
 
 posts.forEach((singlePost) => {
     const postTemplate = generateSinglePost(singlePost); 
+
+    containerPost.innerHTML +=postTemplate;
+    console.log(singlePost);
 });
 
 //al click sul bottone lo coloro di verde e aumento il counter di 1
-// const allLikes = document.querySelectorAll('.js-like-button');
-// allLikes.forEach((likesElement) => {
-//     likesElement.addEventListener('click', function() {
-//         console.log('ciao')
-//     });
-// });
+const allLikes = document.querySelectorAll('.js-like-button');
+const allCounter = document.querySelectorAll('.js-likes-counter');
+
+allLikes.forEach((likesElement, index) => {
+    likesElement.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        if(!this.classList.contains('like-button--liked')) {
+            //aggiungo la classe sull'elemento su cui ho cliccato
+            this.classList.add('like-button--liked');
+            //prendo il counter e lo incremento di 1
+            const relatedCounter = allCounter[index];
+            const relatedCounterNumber = parseInt(relatedCounter.innerHTML);
+            relatedCounter.innerHTML = relatedCounterNumber + 1;
+        }
+    });
+});
 
 //FUNCTIONS
 //funzione che genera il singolo post
 function generateSinglePost(postObject) {
-    const {media, author, likes, created} = postObject;
+    const {id, media, author, likes, created} = postObject;
 
     const postTemplate = 
     `<div class="post">
@@ -102,12 +116,11 @@ function generateSinglePost(postObject) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${singlePost.likes}</b> persone
+                Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
             </div>
         </div> 
     </div>            
     </div> `;
 
-    containerPost.innerHTML +=postTemplate;
-    console.log(singlePost);
+    return postTemplate;
 }
