@@ -77,6 +77,7 @@ allLikes.forEach((likesElement, index) => {
         if(!this.classList.contains('like-button--liked')) {
             //aggiungo la classe sull'elemento su cui ho cliccato
             this.classList.add('like-button--liked');
+            
             //prendo il counter e lo incremento di 1
             const relatedCounter = allCounter[index];
             const relatedCounterNumber = parseInt(relatedCounter.innerHTML);
@@ -116,7 +117,7 @@ function generateSinglePost(postObject) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
             </div>
         </div> 
     </div>            
